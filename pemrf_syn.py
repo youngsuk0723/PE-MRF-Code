@@ -349,8 +349,8 @@ def genEdgeMatrix(filename_edge, n):
     edge_matrix=np.diag(np.concatenate([np.ones(n)]))
 #    edge_matrix=np.zeros([n,n])
     for k in range(numberOfEdge):
-        i = edge_data[k][0]
-        j = edge_data[k][1]
+        i = int(edge_data[k][0])
+        j = int(edge_data[k][1])
         edge_matrix[j,i]=1
         edge_matrix[i,j]=1
     
