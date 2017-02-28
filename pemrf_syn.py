@@ -560,18 +560,19 @@ sumFPR = sumFPR/max_iter
 np.savetxt('TPR.csv', sumTPR, delimiter=',')
 np.savetxt('FPR.csv', sumFPR, delimiter=',')
 
-
-import matplotlib as mpl
-#mpl.use('Agg')
-import matplotlib.pyplot as plt
-# import numpy as np
-
-TPRData = np.genfromtxt('TPR.csv', delimiter=",")
-FPRData = np.genfromtxt('FPR.csv', delimiter=",")
-
-print(TPRData, FPRData)
-plt.figure(figsize=(6,6))
-plt.plot(FPRData, TPRData, 'o-')
-plt.plot([0,1],[0,1],'--')
-
-plt.show()  
+print('do not draw a graph')
+#
+#import matplotlib as mpl
+##mpl.use('Agg')
+#import matplotlib.pyplot as plt
+## import numpy as np
+#
+#TPRData = np.genfromtxt('TPR.csv', delimiter=",")
+#FPRData = np.genfromtxt('FPR.csv', delimiter=",")
+#
+#print(TPRData, FPRData)
+#plt.figure(figsize=(6,6))
+#plt.plot(FPRData, TPRData, 'o-')
+#plt.plot([0,1],[0,1],'--')
+#
+#plt.show()  
