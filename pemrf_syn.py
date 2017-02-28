@@ -386,7 +386,7 @@ np.set_printoptions(suppress=True, precision = 3)
 
 ###################################TEST CODE######################################
 
-max_iter= 1 # change into 30 
+max_iter= 30 # change into 30 
 sample_size = 1000 # test for 1000, 5000
 
 set_length = 7
