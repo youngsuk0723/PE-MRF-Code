@@ -254,7 +254,7 @@ def ADMM(theta, Z, U, A, K, lamb, W, num_sam, m_vec, dim_vec, epsilon_abs, epsil
         epsilon_dual.append( mat_dim * epsilon_abs + epsilon_rel * rho * la.norm(new_U, 'fro'))
         
 
-        if (k % 25) == 0:
+        if (k % 250) == 0:
             print ('.') # python 2
 #             print('.', end="") # python 3.5
             
@@ -381,7 +381,6 @@ def createEmatrix(theta, m_vec, dim_vec, tolerance):
                 E[i,j] = 0
 
     return E[1:,1:]
-
 np.set_printoptions(suppress=True, precision = 3)
 
 
@@ -390,17 +389,17 @@ np.set_printoptions(suppress=True, precision = 3)
 max_iter= 1 # change into 30 
 sample_size = 1000 # test for 1000, 5000
 
-set_length = 10
+set_length = 7
 
 E = [ ] # [  [], [], [], ... [] ]
 sumTPR = np.zeros([set_length,1]) ## intialize for summing True Positive error vector
 sumFPR = np.zeros([set_length,1]) ## intialize for summing False Positive error vector
     
 for i in range(0, max_iter):
-#     file_name = 'sufficient_statistics_'+str(i)+'.csv'
-#     file_name2 = 'modifiedEdge_'+str(i)+'.csv'
-    file_name = 'test2_sufficient_statistics.csv'
-    file_name2 = 'test2_edges.csv'
+    file_name = 'Data_HighSparsity/sufficient_statistics_'+ str(i) + '.csv'
+    file_name2 = 'Data_HighSparsity/modifiedEdge_'+ str(i) + '.csv'
+#     file_name = 'test2_sufficient_statistics.csv'
+#     file_name2 = 'test2_edges.csv'
     print('+++++++++++++++++++++++++++', 'Test For ', file_name, '+++++++++++++++++++++++++++')
 
 #     print('TEST for :')
@@ -409,6 +408,8 @@ for i in range(0, max_iter):
 #     print()
     
     #########################################################################################################
+    # This part should be changed for different data types
+    
     # number of Bernoulli sample, Bernoulli T(x) dimension
     # number of Gamma sample, Gamma T(x) dimension
     # number of Gaussian sample, Gaussian T(x) dimension
@@ -416,8 +417,6 @@ for i in range(0, max_iter):
     # respectively
        
     # n_r[0], m_t[0], n_t[1], m_r[1], n_r[2], m_t[2], n_r[3], m_t[3]
-    data = np.genfromtxt(file_name, delimiter=",")
-    data = data[1:sample_size,:]
     m1 = 8
     m2 = 8
     m3 = 8
@@ -427,6 +426,14 @@ for i in range(0, max_iter):
     dim2 = 1
     dim3 = 2
     dim4 = 3
+    
+    data = np.genfromtxt(file_name, delimiter=",")
+    
+#     indices = range(m1*dim1) +  range(m1*dim1 + 1, m1*dim1 +  m2*(dim2 + 1),2 ) + \
+#         range(m1*dim1 +  m2*(dim2 + 1),  m1*dim1 +  m2*(dim2 + 1) + m3*dim3) + \
+#         range(m1*dim1 +  m2*(dim2 + 1) + m3*dim3, m1*dim1 +  m2*(dim2 + 1) + m3*dim3 + m4*dim4) 
+    indices = range(56)
+    data = data[1:sample_size,indices]
     
     m = np.array([1, m1, m2, m3, m4])
     dim = np.array([1, dim1, dim2, dim3, dim4])
@@ -442,6 +449,8 @@ for i in range(0, max_iter):
         print('m_r and n_t should have the same length')
     
     dist_num = np.sum(m)-1
+    
+#     balance = [1, 1, la.norm(data[8:16])/la.norm(data[:8]), la.norm(data[16:32])/la.norm(data[:8]), la.norm(data[32:56])/la.norm(data[:8])]
     
     balance = [1, 1, 1, 3, 2]
     M = Mmatrix(data, m, dim, balance)
@@ -497,7 +506,7 @@ for i in range(0, max_iter):
     
     ################################TEST for different LAMBDA value ###########################################
     s = set_length
-    lamb = np.logspace(-1, 1, s) #where set_length is the number of points in the ROC graph
+    lamb = np.logspace(-0.7, 1, s) #where set_length is the number of points in the ROC graph
     ################################################################################################
     
     ################################################################################################
@@ -509,7 +518,8 @@ for i in range(0, max_iter):
     
     TPRvec = []
     FPRvec = []
-   
+    
+    
     for p in range(len(lamb)):
         
         print('lambda is',lamb[p])
@@ -549,7 +559,6 @@ sumFPR = sumFPR/max_iter
 
 np.savetxt('TPR.csv', sumTPR, delimiter=',')
 np.savetxt('FPR.csv', sumFPR, delimiter=',')
-
 
 
 import matplotlib as mpl
