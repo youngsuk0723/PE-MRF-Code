@@ -280,18 +280,18 @@ def ADMM(theta, Z, U, A, K, lamb, W, num_sam, m_vec, dim_vec, epsilon_abs, epsil
     print()
     if k == K-1:
         print('Status: Inaccurate Solution')
-        print()
-        print('Primal Residual is          ', R_k[k-1])    
-        print()
-        print('Primal Stopping criteria is ', epsilon_pri[k-1])
-        print()
-        print('Dual Residual is            ', S_k[k-1])
-        print()
-        print('Dual Stopping criteria is   ', epsilon_dual[k-1])
+#        print()
+#        print('Primal Residual is          ', R_k[k-1])    
+#        print()
+#        print('Primal Stopping criteria is ', epsilon_pri[k-1])
+#        print()
+#        print('Dual Residual is            ', S_k[k-1])
+#        print()
+#        print('Dual Stopping criteria is   ', epsilon_dual[k-1])
     else:
         print('Status: Optimial Solution')
-        print('primal: ', R_k[k], 'vs', epsilon_pri[k])
-        print('dual: ', S_k[k], 'vs', epsilon_dual[k])
+#        print('primal: ', R_k[k], 'vs', epsilon_pri[k])
+#        print('dual: ', S_k[k], 'vs', epsilon_dual[k])
     
     return new_theta, new_Z, new_U, R_k, S_k, epsilon_pri, epsilon_dual
 def computeErrors(edge_matrix_actual,edge_matrix_est, Theta, A, e1,e2,e3,e4,e5,e6):
@@ -335,7 +335,7 @@ def computeErrors(edge_matrix_actual,edge_matrix_est, Theta, A, e1,e2,e3,e4,e5,e
 #     print('R = ', R)
 #     print('Score = ', score)
 #     print('AIC = ', AIC)
-    print ('D = ',D,'T = ', T,'TandD = ', TP,'K = ', K,'P = ', P,'R = ', R,'Score = ', score, 'AIC = ', AIC)
+#    print ('D = ',D,'T = ', T,'TandD = ', TP,'K = ', K,'P = ', P,'R = ', R,'Score = ', score, 'AIC = ', AIC)
     
             
     return e1, e2, e3, e4 ,e5 , e6  
@@ -429,10 +429,10 @@ for i in range(0, max_iter):
     
     data = np.genfromtxt(file_name, delimiter=",")
     
-#     indices = range(m1*dim1) +  range(m1*dim1 + 1, m1*dim1 +  m2*(dim2 + 1),2 ) + \
-#         range(m1*dim1 +  m2*(dim2 + 1),  m1*dim1 +  m2*(dim2 + 1) + m3*dim3) + \
-#         range(m1*dim1 +  m2*(dim2 + 1) + m3*dim3, m1*dim1 +  m2*(dim2 + 1) + m3*dim3 + m4*dim4) 
-    indices = range(56)
+    indices = range(m1*dim1) +  range(m1*dim1 + 1, m1*dim1 +  m2*(dim2 + 1),2 ) + \
+         range(m1*dim1 +  m2*(dim2 + 1),  m1*dim1 +  m2*(dim2 + 1) + m3*dim3) + \
+         range(m1*dim1 +  m2*(dim2 + 1) + m3*dim3, m1*dim1 +  m2*(dim2 + 1) + m3*dim3 + m4*dim4) 
+#    indices = range(56)
     data = data[1:sample_size,indices]
     
     m = np.array([1, m1, m2, m3, m4])
