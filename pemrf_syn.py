@@ -280,18 +280,18 @@ def ADMM(theta, Z, U, A, K, lamb, W, num_sam, m_vec, dim_vec, epsilon_abs, epsil
     print()
     if k == K-1:
         print('Status: Inaccurate Solution')
-        print()
-        print('Primal Residual is          ', R_k[k-1])    
-        print()
-        print('Primal Stopping criteria is ', epsilon_pri[k-1])
-        print()
-        print('Dual Residual is            ', S_k[k-1])
-        print()
-        print('Dual Stopping criteria is   ', epsilon_dual[k-1])
+#        print()
+#        print('Primal Residual is          ', R_k[k-1])    
+#        print()
+#        print('Primal Stopping criteria is ', epsilon_pri[k-1])
+#        print()
+#        print('Dual Residual is            ', S_k[k-1])
+#        print()
+#        print('Dual Stopping criteria is   ', epsilon_dual[k-1])
     else:
         print('Status: Optimial Solution')
-        print('primal: ', R_k[k], 'vs', epsilon_pri[k])
-        print('dual: ', S_k[k], 'vs', epsilon_dual[k])
+#        print('primal: ', R_k[k], 'vs', epsilon_pri[k])
+#        print('dual: ', S_k[k], 'vs', epsilon_dual[k])
     
     return new_theta, new_Z, new_U, R_k, S_k, epsilon_pri, epsilon_dual
 def computeErrors(edge_matrix_actual,edge_matrix_est, Theta, A, e1,e2,e3,e4,e5,e6):
@@ -335,7 +335,7 @@ def computeErrors(edge_matrix_actual,edge_matrix_est, Theta, A, e1,e2,e3,e4,e5,e
 #     print('R = ', R)
 #     print('Score = ', score)
 #     print('AIC = ', AIC)
-    print ('D = ',D,'T = ', T,'TandD = ', TP,'K = ', K,'P = ', P,'R = ', R,'Score = ', score, 'AIC = ', AIC)
+#    print ('D = ',D,'T = ', T,'TandD = ', TP,'K = ', K,'P = ', P,'R = ', R,'Score = ', score, 'AIC = ', AIC)
     
             
     return e1, e2, e3, e4 ,e5 , e6  
@@ -349,8 +349,8 @@ def genEdgeMatrix(filename_edge, n):
     edge_matrix=np.diag(np.concatenate([np.ones(n)]))
 #    edge_matrix=np.zeros([n,n])
     for k in range(numberOfEdge):
-        i = edge_data[k][0]
-        j = edge_data[k][1]
+        i = int(edge_data[k][0])
+        j = int(edge_data[k][1])
         edge_matrix[j,i]=1
         edge_matrix[i,j]=1
     
@@ -386,7 +386,7 @@ np.set_printoptions(suppress=True, precision = 3)
 
 ###################################TEST CODE######################################
 
-max_iter= 1 # change into 30 
+max_iter= 30 # change into 30 
 sample_size = 1000 # test for 1000, 5000
 
 set_length = 7
@@ -429,10 +429,10 @@ for i in range(0, max_iter):
     
     data = np.genfromtxt(file_name, delimiter=",")
     
-#     indices = range(m1*dim1) +  range(m1*dim1 + 1, m1*dim1 +  m2*(dim2 + 1),2 ) + \
-#         range(m1*dim1 +  m2*(dim2 + 1),  m1*dim1 +  m2*(dim2 + 1) + m3*dim3) + \
-#         range(m1*dim1 +  m2*(dim2 + 1) + m3*dim3, m1*dim1 +  m2*(dim2 + 1) + m3*dim3 + m4*dim4) 
-    indices = range(56)
+    indices = range(m1*dim1) +  range(m1*dim1 + 1, m1*dim1 +  m2*(dim2 + 1),2 ) + \
+         range(m1*dim1 +  m2*(dim2 + 1),  m1*dim1 +  m2*(dim2 + 1) + m3*dim3) + \
+         range(m1*dim1 +  m2*(dim2 + 1) + m3*dim3, m1*dim1 +  m2*(dim2 + 1) + m3*dim3 + m4*dim4) 
+#    indices = range(56)
     data = data[1:sample_size,indices]
     
     m = np.array([1, m1, m2, m3, m4])
@@ -560,18 +560,19 @@ sumFPR = sumFPR/max_iter
 np.savetxt('TPR.csv', sumTPR, delimiter=',')
 np.savetxt('FPR.csv', sumFPR, delimiter=',')
 
-
-import matplotlib as mpl
-#mpl.use('Agg')
-import matplotlib.pyplot as plt
-# import numpy as np
-
-TPRData = np.genfromtxt('TPR.csv', delimiter=",")
-FPRData = np.genfromtxt('FPR.csv', delimiter=",")
-
-print(TPRData, FPRData)
-plt.figure(figsize=(6,6))
-plt.plot(FPRData, TPRData, 'o-')
-plt.plot([0,1],[0,1],'--')
-
-plt.show()  
+print('do not draw a graph')
+#
+#import matplotlib as mpl
+##mpl.use('Agg')
+#import matplotlib.pyplot as plt
+## import numpy as np
+#
+#TPRData = np.genfromtxt('TPR.csv', delimiter=",")
+#FPRData = np.genfromtxt('FPR.csv', delimiter=",")
+#
+#print(TPRData, FPRData)
+#plt.figure(figsize=(6,6))
+#plt.plot(FPRData, TPRData, 'o-')
+#plt.plot([0,1],[0,1],'--')
+#
+#plt.show()  
